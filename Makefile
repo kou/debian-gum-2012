@@ -12,6 +12,9 @@ check: all
 	umask 002 ; dvipdfmx -o $@.tmp $< 
 	mv $@.tmp $@
 
+debianmeeting.tex: utf8-debianmeeting.tex
+	iconv -f utf-8 -t iso-2022-jp < $< > $@
+
 %.dvi: %.tex
 	## start of linting stuff
 	# check kanji-code of the tex file.
