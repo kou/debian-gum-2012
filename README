@@ -1,0 +1,61 @@
+大統一Debian勉強会 TeX テンプレート
+-----------------------------------
+
+始めに
+======
+
+このファイルには通常の「Debian勉強会」で用いられているスタイルファイルを、
+「大統一Debian勉強会」向けに修正したテンプレートとMakefile一式が入ってい
+ます。
+
+TeXのテンプレートはdebianmeeting.tex、スタイルファイルは
+monthlyreport.styです。
+
+必要なソフトウェア
+==================
+
+PDF生成に必要なソフトウェアは
+
+* pLaTeX
+* pLaTeX2e 新ドキュメントクラス
+* dvipdfmx
+* lv
+
+です。自身の環境に合わせて適宜インストール/設定して下さい。
+
+Debian 6.0(Squeeze)の場合には
+
+  - ptex-bin, dvipdfmx, okumura-clsfiles, texlive-latex-extra, lv,
+    gs-cjk-resource
+
+と、これらに依存するパッケージを導入することでPDFの生成ができるようになり
+ます。
+
+編集の方法
+=========
+
+記事の作成は debianmeeting.tex を編集することで行ないます。
+
+1) 通常の \section 命令に代わって \dancersection という命令が追加されてい
+   ます。この命令は、
+
+     \dancersection{発表タイトル}{発表者名}
+
+   として使います。
+
+2) コマンドラインを記述するために verbatim 環境を修正した
+   commandline 環境が用意されています。verbatim の代わりにお使い下さい。
+
+3) 文字コードは ISO-2022-JP でお願いします。また、句読点に関しては「、。」
+   をお使い下さい。一応 make 時に utils/spellint.sh が実行されて簡易チェッ
+   クが行なわれるようになっています。
+
+4) make を実行すると PDF ファイルが生成されます。プレビューにお使い下さい。
+
+問い合わせ
+=========
+
+なにか質問等がございましたら、grand-meeting@debian.or.jp までメールにてご
+連絡ください。
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>, Thu, 26 Apr 2012 18:19:44 +0900
