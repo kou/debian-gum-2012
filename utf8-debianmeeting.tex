@@ -49,13 +49,44 @@ Debian GNU/Linux上で動作するプレゼンテーションツールはたく�
 
 それぞれのツールは特徴が大きく異なっており、それぞれよいところがありま
 す。Rabbitにもまた特徴があり、他のツールにはない便利な機能があります。
-それが「プレゼンテーションを時間内に終わらせるための機能」です。 本プレ
-ゼンテーションではRabbitの特徴的な「プレゼンテーションを時間内に終わら
-せるための機能」を中心にRabbitを紹介します。
+それが「プレゼンテーションを時間内に終わらせるための機能」です。プレゼ
+ンテーション中に残り時間を表示して、発表者に進み具合を伝えるタイマー機
+能は多くのツールが提供しています。Rabbitの機能はどう違うのでしょうか。
+一言でいうとUI（ユーザーインターフェイス。見た目）が違います。他は同じ
+です。
 
-\subsection{サブセクション}
+\subsection{RabbitのUI}
 
-サブセクション。
+タイマー機能はMagicPointも提供していますし、Impressも提供しています。
+図\ref{fig:normal-timer-ui}のように、MagicPointはスライド下部にとても目
+立たないように緑のバーを表示します。Impressはスライド表示用のモニターと
+は別のモニターに経過時間を表示します。このように発表者にだけわかるよう
+に表示するUIが一般的なタイマー機能のUIです。
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=1\hsize]{images/normal-timer-ui.eps}
+  \end{center}
+  \caption{従来のタイマー機能のUI}
+  \label{fig:normal-timer-ui}
+\end{figure}
+
+一方、RabbitのUIは発表者だけではなく観客にもわかりやすく表示します。
+図\ref{fig:rabbit-timer-ui}のように、スライド下部にうさぎとかめを表示し
+ます。それも誰が見ても気づくくらいの大きさで表示します。このようにタイ
+マー機能を観客からもわかりやすく表示するUIは既存のプレゼンテーションツー
+ルとは一線を画します。
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\hsize]{images/rabbit-timer-ui.eps}
+  \end{center}
+  \caption{Rabbitのタイマー機能のUI}
+  \label{fig:rabbit-timer-ui}
+\end{figure}
+
+それでは、このUIがどうして時間内に終わるための効果を提供するかを考えて
+みましょう。
 
 \subsubsection{サブサブセクション}
 
@@ -65,15 +96,6 @@ Debian GNU/Linux上で動作するプレゼンテーションツールはたく�
 コマンドラインとか。
 % apt-get
 \end{commandline}
-
-図\ref{fig:image01}として画像を入れる場合。
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=1\hsize]{images/openlogo-nd.eps}
-  \end{center}
-  \caption{キャプション}
-  \label{fig:image01}
-\end{figure}
 
 フットノート\footnote{フットノートです。}
 

@@ -3,6 +3,10 @@ DVIFILES:=$(SOURCE:%.tex=%.dvi)
 PDFFILES:=$(SOURCE:%.tex=%.pdf)
 RELEASEFILES:=$(SOURCE:%.tex=%.release-stamp)
 
+IMAGES =					\
+	images/normal-timer-ui.eps		\
+	images/rabbit-timer-ui.eps
+
 # server which hosts files for alioth.
 all: $(PDFFILES)
 
@@ -12,7 +16,7 @@ check: all
 	umask 002 ; dvipdfmx -o $@.tmp $< 
 	mv $@.tmp $@
 
-debianmeeting.tex: utf8-debianmeeting.tex
+debianmeeting.tex: utf8-debianmeeting.tex $(IMAGES)
 	iconv -f utf-8 -t iso-2022-jp < $< > $@
 
 %.dvi: %.tex
@@ -31,6 +35,9 @@ debianmeeting.tex: utf8-debianmeeting.tex
 	platex -halt-on-error -kanji=jis $< # create draft content with correct spacing for index and toc
 	-mendex $(<:%.tex=%) # recreate index with correct page number
 	platex -halt-on-error -kanji=jis $< # recreate toc with correct page number
+
+%.eps: %.svg
+	inkscape --export-eps $@ $<
 
 clean:
 	-rm -f *.dvi *.aux *.toc *~ *.log *.waux *.out _whizzy_* *.snm *.nav *.jqz *.ind *.ilg *.idx *.idv *.lg *.xref *.4ct *.4tc *.css
