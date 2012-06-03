@@ -28,6 +28,7 @@
 
 \documentclass[mingoth,a4paper]{jsarticle}
 \usepackage{monthlyreport}
+\usepackage{alltt}
 
 \begin{document}
 
@@ -35,6 +36,14 @@
 \label{sec:kou}
 
 Debian GNU/Linux上で動作するプレゼンテーションツールRabbitを紹介します。
+まず、Rabbitの代表的な機能である時間内に終われるための機能を紹介し、そ
+の後、Debian GNU/Linux上でRabbitをインストールする方法とスライドを作る
+方法を簡単に紹介します。
+
+\subsection{Rabbitとは}
+
+RabbitはRubyとGTK+で実装されたプレゼンテーションツールです。Debian
+GNU/Linuxを含む多くのプラットフォーム上で動作します。
 
 Debian GNU/Linux上で動作するプレゼンテーションツールはたくさんあります。
 
@@ -49,13 +58,13 @@ Debian GNU/Linux上で動作するプレゼンテーションツールはたく�
 
 それぞれのツールは特徴が大きく異なっており、それぞれよいところがありま
 す。Rabbitにもまた特徴があり、他のツールにはない便利な機能があります。
-それが「プレゼンテーションを時間内に終わらせるための機能」です。プレゼ
-ンテーション中に残り時間を表示して、発表者に進み具合を伝えるタイマー機
-能は多くのツールが提供しています。Rabbitの機能はどう違うのでしょうか。
-一言でいうとUI（ユーザーインターフェイス。見た目）が違います。他は同じ
-です。
+それが「プレゼンテーションを時間内に終われるための機能」です。プレゼン
+テーション中に残り時間を表示して、発表者に進み具合を伝えるタイマー機能
+は多くのツールが提供しています。Rabbitの機能はどう違うのでしょうか。一
+言でいうとUI（ユーザーインターフェイス。見た目）が違います。他は同じで
+す。
 
-\subsection{RabbitのUI}
+\subsubsection{RabbitのUI}
 
 タイマー機能はMagicPointも提供していますし、Impressも提供しています。
 図\ref{fig:normal-timer-ui}のように、MagicPointはスライド下部にとても目
@@ -106,25 +115,129 @@ Debian GNU/Linux上で動作するプレゼンテーションツールはたく�
 表に近づきます。もし、発表が長引いてしまった場合でもできるだけ早く終わ
 るようになります。
 
-\begin{commandline}
-コマンドラインとか。
-% apt-get
-\end{commandline}
+\subsection{インストール方法}
 
-フットノート\footnote{フットノートです。}
+RabbitをDebian GNU/Linuxへインストールする方法を紹介します。インストー
+ル方法は以下の2種類あります。
 
 \begin{itemize}
-\item リスト1
-\item リスト2
+\item aptを使う
+\item RubyGemsを使う
 \end{itemize}
 
+最新バージョンを使いたい場合やフル機能を使いたい場合はRubyGemsを使う方
+法がオススメです。簡単にインストールしたい場合はaptを使う方法がオススメ
+です。
 
-\begin{enumerate}
-\item 番号付きリスト1
-\item 番号付きリスト2
-\end{enumerate}
+\subsubsection{aptでインストール}
 
-Debian GNU/Linuxでプレゼンテーションをする人たちの参考になることを期待
-します。
+まずは、aptを使う方法です。Rabbitのdebパッケージは公式aptリポジトリに含
+まれている\footnote{大統一Debian勉強会の実行委員でもある佐々木洋平さん
+がパッケージメンテナー。}ので以下のようにすれば簡単にインストールできます。
+
+\begin{commandline}
+% sudo apt-get -V -y install rabbit
+\end{commandline}
+
+以下のコマンドを実行してスライドが表示されたら正常にインストールできています。
+
+\begin{commandline}
+% rabbit https://raw.github.com/shockers/rabbit/master/sample/theme-bench.rab
+\end{commandline}
+
+\subsubsection{RubyGemsでインストール}
+
+次にRubyGemsを使う方法です。RabbitはGTK+などたくさんのライブラリを利用
+しています。そのため、まず、関連ライブラリをaptでインストールします。
+
+\begin{commandline}
+% sudo apt-get -V -y install \
+    ruby1.9.1 ruby1.9.1-dev libgtk2.0-dev librsvg2-dev libpoppler-glib-dev \
+    libxml2-dev libxslt1-dev
+\end{commandline}
+
+関連ライブラリをインストールしたらRubyGemsでRabbitをインストールします。
+
+\begin{commandline}
+% sudo gem1.9.1 install rabbit twitter-stream twitter_oauth
+\end{commandline}
+
+以下のコマンドを実行してスライドが表示されたら正常にインストールできています。
+
+\begin{commandline}
+% PATH="/var/lib/gems/1.9.1/bin:$PATH"
+% rabbit https://raw.github.com/shockers/rabbit/master/sample/theme-bench.rab
+\end{commandline}
+
+\subsection{スライドの作り方}
+
+RabbitはMagicPointや\TeX{}のようにテキストでスライドを作成します。テキ
+ストのフォーマットにはRD\footnote{Ruby Documentの略。}やWiki形
+式、Markdownなどいくつもの有名なフォーマットをサポートしています。ここ
+では、RDでのスライドの書き方を紹介します。
+
+\subsubsection{RDでのスライドの作り方}
+
+RDでスライドを作る場合、以下のように「\tt{=}」でスライドを区切ります。
+「\tt{=}」の行に書いているテキストがそのスライドのタイトルになります。
+シンプルですね。
+
+\begin{screen}
+\begin{alltt}
+# slide.rab
+
+= タイトルスライド
+
+# 持ち時間
+: allotted-time
+   5m
+
+= 最初のスライド
+
+  * 1枚目のスライドの内容
+
+= 2枚目のスライド
+
+  * 2枚目のスライドの内容
+\end{alltt}
+\end{screen}
+
+最初のスライドは特別でタイトルスライドになります。ここにはスライド全体
+のメタデータを指定することができます。「\tt{allotted-time}」というのは
+このプレゼンテーションの持ち時間で、「\tt{5m}」は5分\footnote{5
+  Minutes}という意味です。持ち時間を指定するとうさぎとかめタイマーが表
+示されるので、持ち時間が決まっているプレゼンテーションのときは指定しま
+しょう。
+
+作成したスライドは以下のように実行します。2ページ目以降を表示するとうさ
+ぎとかめタイマーが動きだします。
+
+\begin{commandline}
+% rabbit slide.rab
+\end{commandline}
+
+\subsubsection{PDFで作成したスライドの表示方法}
+
+Rabbitはスライドを表示する機能だけを提供しているため、スライド作成を支
+援する機能はありません。Debian GNU/Linuxを使っている人はエディターでテ
+キストを編集することに慣れているでしょうが、たまにはImpressなどを使っ
+てGUIでグラフィカルにスライドを作成したくなるかもしれません。そのときは
+そのようなツールでスライドを作成してください。Rabbitはテキストだけでは
+なくPDFファイルも読むこむことができます。Impressなどでスライドを作成
+し、PDFで出力すればRabbitで表示することができます。
+
+PDFを表示するときはコマンドラインから持ち時間を指定しま
+す。\tt{--allotted-time 5m}と指定すると持ち時間が5分という意味になりま
+す。PDFを表示する場合は2ページ目以降からうさぎとかめタイマーが動きだします。
+
+\begin{commandline}
+% rabbit --allotted-time 5m slide.pdf
+\end{commandline}
+
+\subsection{さいごに}
+
+Debian GNU/Linux上で動作する時間内に終われるプレゼンテーションツー
+ルRabbitを紹介しました。Debian GNU/Linuxでプレゼンテーションをする人た
+ちの参考になることを期待しています。
 
 \end{document}
